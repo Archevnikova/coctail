@@ -1,12 +1,17 @@
 let coctail = document.querySelector(".random-coctail");
 let templ = document.querySelector(".template-item");
-//копировала
-let runTest = async (letter) => {
+
+//
+async function  getCoctail(){
+    let resp = await fetch("http://www.thecocktaildb.com/api/json/v1/1/random.php" ,{ mode:"no-cors"});
+  //  let json = await resp.json();
+    console.log(resp);
+}
+let runTest = async () => {
     try {
         coctail.innerHTML = "";
-        let resp = await fetch("www.thecocktaildb.com/api/json/v1/1/random.php" + letter);
-        let json = await resp.json();
-                
+       
+                console.log(json);
         for (let drink of json?.drinks) {
            generateCard(drink);
            console.log(drink);
@@ -16,13 +21,9 @@ let runTest = async (letter) => {
     }
 }
 
-function inputLetter() {
-    const letter = document.querySelector(".letter");
-    runTest(letter.value);
-}
 
 const generateCard = (data) => {
-    const newCard = cardTemplate.content.cloneNode(true);
+    const newCard = templ.content.cloneNode(true);
 
     const card = newCard.querySelector(".card");
     const cardImg = newCard.querySelector(".card-img-top");
@@ -30,3 +31,4 @@ const generateCard = (data) => {
     const instruction = newCard.querySelector(".instruction");
     
 }
+document.addEventListener("DOMContentLoaded", getCoctail); 
